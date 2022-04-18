@@ -16,7 +16,7 @@ function App() {
       <main>
         <Suspense fallback={<Spinner />}>
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route index path="character" element={<MainPage />} />
 
             <Route path="*" element={<Page404 />} />
           </Routes>

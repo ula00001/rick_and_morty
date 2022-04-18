@@ -13,7 +13,7 @@ export const useHttp = () => {
       throw new Error(`Could not fetch ${url}`);
     }
     setLoading(false);
-    console.log(data);
+    // console.log(data);
     return data;
     } catch (e) {
       setLoading(false);
