@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Spinner from './spinner/Spinner';
 import Container from '@mui/material/Container';
@@ -16,7 +16,8 @@ function App() {
       <main>
         <Suspense fallback={<Spinner />}>
           <Routes>
-            <Route index path="character" element={<MainPage />} />
+            <Route path="/" element={<Navigate replace to="/character" />} />
+            <Route path="character" element={<MainPage />} />
 
             <Route path="*" element={<Page404 />} />
           </Routes>

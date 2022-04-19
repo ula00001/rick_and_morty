@@ -11,10 +11,6 @@ import { useQuery } from 'react-query';
 import './charInfo.scss';
 
 const CharInfo = (props) => {
-    // const [char, setChar] = useState(null);
-
-    // const { loading, error, getCharacter, clearError } = useCharacterService();
-
     const { singleChar, singleCharId, charLoadingStatus } = useSelector(state => state.singleChar);
     const dispatch = useDispatch();
     const { request } = useHttp();
@@ -29,19 +25,7 @@ const CharInfo = (props) => {
     } else if (charLoadingStatus == 'loading') {
         return <Spinner />;
     }
-    // const updateChar = () => {
-    //     if (!singleCharId) {
-    //         return;
-    //     }
-    //     clearError();
-    //     getCharacter(singleCharId)
-    //         .then(onCharLoaded)
-    // };
 
-    // const onCharLoaded = (char) => {
-    //     // console.log(char);
-    //     setChar(char);
-    // };
     const skeleton = !singleCharId ? <Skeleton />: null ;
     console.log(singleCharId);
 
@@ -84,9 +68,9 @@ const Info = (singleChar) => {
             {episode.map((item, i) => {
                 return (
                     <li key={i} className="char__comics-item">
-                        <NavLink to={item}>
+                        <a href={item}>
                         {item}
-                        </NavLink>
+                        </a>
                     </li>
                 );
             })}

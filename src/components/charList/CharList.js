@@ -3,13 +3,11 @@ import { useHttp } from '../../hooks/useHttp';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from "../../spinner/Spinner";
 import ErrorMessage from "../../errorMessage/ErrorMessage";
-import { useQuery } from 'react-query'
 import Char from './CharList.styled';
 import { styled } from "@mui/material/styles";
-import { fetchAllCharacters, fetchSingleharacters } from '../../actions';
+import { fetchAllCharacters } from '../../actions';
 import { singleCharId } from '../../components/charInfo/charInfoSlice';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import '../../style/style.scss';
@@ -27,20 +25,19 @@ const CharGrid = styled('ul')`
 const CharList = () => {
   const itemRefs = useRef([]);
   let navigate = useNavigate();
+
   let [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page'));
-
   const {charList, charListLoadingStatus} = useSelector(state => state.charList);
   const dispatch = useDispatch();
   const { request } = useHttp();
 
   useEffect(() => {
     dispatch(fetchAllCharacters(request, page));
-    navigate(`/character?page=${1}`);
+    navigate(`?page=${!page ? 1 : page}`);
   }, []);
 
   const focusOnItem = useCallback((id) => {
-    console.log('das');
     itemRefs.current.forEach(item => item.classList.remove('char__item_selected'));
     itemRefs.current[id].classList.add('char__item_selected');
     itemRefs.current[id].focus();
@@ -56,7 +53,7 @@ const CharList = () => {
   }
   const onChangePage = (e, pageNum) => {
     dispatch(fetchAllCharacters(request, pageNum));
-    navigate(`/character?page=${pageNum}`);
+    navigate(`?page=${pageNum}`);
   }
 
   function renderItems(items) {
@@ -100,7 +97,7 @@ const CharList = () => {
           count={pagesInfo && pagesInfo.pages}
           color="primary"
           onChange={ onChangePage}
-          page={page}
+          page={!page ? 1 : page}
         />
 
       </Stack>

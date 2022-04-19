@@ -19,12 +19,6 @@ const RandomChar = () => {
     dispatch(fetchRandomcharacters(request, randomCharId));
   }, [randomCharId])
 
-  // if (randomCharLoadingStatus === 'error') {
-  //   return <ErrorMessage />;
-  // } else if (randomCharLoadingStatus === 'loading') {
-  //   return <Spinner />;
-  // }
-
   const loading = randomCharLoadingStatus === 'loading' && <Spinner />;
   const error = randomCharLoadingStatus === 'error' && <ErrorMessage />
   const content = randomChar && <View randomChar={randomChar} />;
